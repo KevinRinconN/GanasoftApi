@@ -11,6 +11,7 @@ https://docs.djangoproject.com/en/4.1/ref/settings/
 """
 
 from pathlib import Path
+import datetime
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -30,21 +31,35 @@ ALLOWED_HOSTS = []
 
 # Application definition
 
-INSTALLED_APPS = [
+DJANGO_APPS = (
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+)
+
+THIRD_APPS = (
     'drf_yasg',
     'rest_framework',
     'django_filters',
+    'corsheaders',
+)
+
+LOCAL_APPS = (
     'user',
     'cuenta',
-]
+    'ahorro',
+    'transaccion',
+    'bovine',
+)
+
+INSTALLED_APPS = THIRD_APPS + DJANGO_APPS + LOCAL_APPS
+
 
 MIDDLEWARE = [
+    'corsheaders.middleware.CorsMiddleware',
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
@@ -86,7 +101,7 @@ DATABASES = {
         },
         'NAME': 'walletucc',
         'USER': 'root',
-        'PASSWORD': '',
+        'PASSWORD': 'Pfdk_09.26',
         'HOST': 'localhost',
         'PORT': '',
     }
@@ -133,6 +148,13 @@ REST_FRAMEWORK = {
     
 }
 
+CORS_ALLOWED_ORIGINS = [
+   "http://localhost:5173",
+]
+
+CORS_ORIGIN_WHITELIST = [
+    "http://localhost:5173",
+]
 
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/4.1/howto/static-files/
@@ -145,3 +167,10 @@ STATIC_URL = 'static/'
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 AUTH_USER_MODEL = 'user.User'
+
+CORS_ORIGIN_ALLOW_ALL = True
+CARS_ALLOW_CREDENTIALS = True
+
+SIMPLE_JWT = {
+    'ACCESS_TOKEN_LIFETIME': datetime.timedelta(days=120)
+}

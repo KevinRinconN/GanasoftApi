@@ -22,6 +22,9 @@ from drf_yasg.views import get_schema_view
 from drf_yasg import openapi
 
 from cuenta.api.router import router_cuentas
+from ahorro.api.router import router_ahorros
+from transaccion.api.router import router_transaccion, router_categoria
+from bovine.api.router import router_bovine
 
 schema_view = get_schema_view(
    openapi.Info(
@@ -42,5 +45,9 @@ urlpatterns = [
     path('docs/', schema_view.with_ui('swagger', cache_timeout=0), name='schema-swagger-ui'),
     path('redocs/', schema_view.with_ui('redoc', cache_timeout=0), name='schema-redoc'),
     path('api/', include('user.api.router')),
-    path('api/', include(router_cuentas.urls))
+    path('api/', include(router_cuentas.urls)),
+    path('api/', include(router_ahorros.urls)),
+    path('api/', include(router_transaccion.urls)),
+    path('api/', include(router_categoria.urls)),
+    path('api/', include(router_bovine.urls))
 ]
